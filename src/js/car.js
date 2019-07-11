@@ -1,27 +1,38 @@
-export function car () {
-	this.color = 'white',
-	this.dours = 4,
-	this.speed = 0,
-	this.defaultspeed = 60,
-	this.maxSpeed = 100,
-	this.seats = 4,
-	this.passenger = [],
-	function put () {
-		if (this.passenger.length < this.seats + 1) {
-			this.passenger.push(true);
+const car = {
+	color: 'white',
+	dours: 4,
+	speed: 0,
+	defaultSpeed: 60,
+	maxSpeed: 100,
+	seats: 4,
+	passengers: [],
+
+	put () {
+		if (this.passengers.length < this.seats) {
+			this.passengers.push(true);
 		}
-	};
-	function land () {
-		if (this.passenger.length > 0) {
-			this.passenger.pop();
+	},
+	land () {
+		if (this.passengers.length) {
+			this.passengers.pop();
+			if (!this.passengers.length) {
+				this.speed = 0;
+			}
 		}
-		if (this.passenger.length === 0) {
-			this.speed = 0;
+
+	},
+	drive (newSpeed) {
+		if (this.passengers.length) {
+			if (newSpeed <= this.maxSpeed) {	
+				this.speed = newSpeed;
+			} else if (newSpeed > this.maxSpeed) {
+				this.speed = this.maxSpeed;
+			}
+			else {
+				this.speed = this.defaultSpeed;
+			}
 		}
 	}
-	function drive (speed) {
-		if (this.maxSpeed < speed) {
-			this.speed = speed;
-		}
-	}
-}
+};
+
+export default car;
